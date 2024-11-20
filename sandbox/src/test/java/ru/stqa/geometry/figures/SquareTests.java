@@ -7,14 +7,15 @@ public class SquareTests {
 
     @Test
     void canCalculateArea(){
-        var result = Square.Area(5.0);
+        var s = new Square(5.0);
+        var result = s.area();
         Assertions.assertEquals(25.0, result);
         System.out.println("----ТЕСТ squareArea ПРОЙДЕН----");
     }
 
     @Test
     void canCalculatePerimetr(){
-        Assertions.assertEquals(20.0, Square.perimetr(5.0));
+        Assertions.assertEquals(20.0, new Square(5.0).perimetr());
         System.out.println("----ТТЕСТ canCalculatePerimetr ПРОЙДЕН----");
     }
 }
