@@ -14,7 +14,7 @@ public record Triangle(double a, double b, double c) {
         return a + b + c;
     }
 
-    public Object area() {
+    public double area() {
         double p = (a + b + c)/2;
         return (Math.sqrt(p*(p-a)*(p-b)*(p-c)));
     }
