@@ -2,6 +2,14 @@ package ru.stqa.geometry.figures;
 
 public record Triangle(double a, double b, double c) {
 
+    public Triangle{
+        if (a < 0 || b < 0 || c < 0){
+            throw new IllegalArgumentException("Triangle side should be non negative");
+        } else if ((a+b)<c || (a+c)<b || (b+c)<a) {
+            throw new IllegalArgumentException("Sides of triangles cannot be less then one side");
+        }
+    }
+
     public static void printTrianglePerimentr(Triangle triangle) {
         System.out.println("Периметр треугольника = " + triangle.perimetr());
     }

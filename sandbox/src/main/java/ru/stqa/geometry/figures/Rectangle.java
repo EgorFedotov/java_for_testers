@@ -4,7 +4,7 @@ public record Rectangle(double a, double b) {
 
     public Rectangle {
         if (a < 0 || b < 0){
-            throw new IllegalArgumentException("Rectangle side shod be non-negative");
+            throw new IllegalArgumentException("Rectangle side should be non-negative");
         }
     }
 
