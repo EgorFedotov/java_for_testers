@@ -27,6 +27,21 @@ public class SquareTests {
         } catch (IllegalArgumentException exception){
             //OK
         }
+    }
 
+    @Test
+    void testEquality(){
+        var s1 = new Square(5.0);
+        var s2= new Square(5.0);
+        Assertions.assertEquals(s1, s2);
+        System.out.println("Квадраты равны");
+    }
+
+    @Test
+    void testNotEquality(){
+        var s1 = new Square(5.0);
+        var s2= new Square(4.0);
+        Assertions.assertEquals(s1, s2);
+        System.out.println("Квадраты не равны");
     }
 }
