@@ -58,10 +58,10 @@ public class TriangleTests {
         var t5 = new Triangle(5.0, 4.0, 3.0);
         var t6 = new Triangle(5.0, 3.0, 4.0);
         Assertions.assertEquals(t1, t2);
-        Assertions.assertEquals(t2, t3);
-        Assertions.assertEquals(t3, t4);
-        Assertions.assertEquals(t4, t5);
-        Assertions.assertEquals(t5, t6);
+        Assertions.assertEquals(t1, t3);
+        Assertions.assertEquals(t1, t4);
+        Assertions.assertEquals(t1, t5);
+        Assertions.assertEquals(t1, t6);
         System.out.println("Треугольники равны");
     }
 }
