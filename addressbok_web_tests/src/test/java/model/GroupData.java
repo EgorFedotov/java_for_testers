@@ -13,10 +13,12 @@ public record GroupData(String name, String header, String footer) {
     }
 
     public GroupData withHeader(String name) {
+
         return new GroupData(this.name, header, this.footer);
     }
 
     public GroupData withFooter(String name) {
+
         return new GroupData(this.name, this.header, footer);
     }
 }
