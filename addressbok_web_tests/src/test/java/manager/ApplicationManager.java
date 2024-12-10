@@ -1,6 +1,5 @@
 package manager;
 
-import model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
@@ -12,13 +11,13 @@ public class ApplicationManager {
     protected WebDriver driver;
     private LoginHelper session;
     private GroupHelper groups;
-    private ContactHelper contacts;
+    public ContactHelper contacts;
 
     public void init(String browser) {
-        if (driver == null){
+        if (driver == null) {
             if ("chrome".equals(browser)) {
                 driver = new ChromeDriver();
-            } else if ("firefox".equals(browser)){
+            } else if ("firefox".equals(browser)) {
                 driver = new FirefoxDriver();
             } else {
                 throw new IllegalArgumentException(String.format("Unknow browser %s", browser));
@@ -32,21 +31,21 @@ public class ApplicationManager {
     }
 
     public LoginHelper session() {
-        if (session == null){
+        if (session == null) {
             session = new LoginHelper(this);
         }
         return session;
     }
 
-    public GroupHelper groups(){
-        if (groups == null){
+    public GroupHelper groups() {
+        if (groups == null) {
             groups = new GroupHelper(this);
         }
         return groups;
     }
 
-    public ContactHelper contacts(){
-        if (contacts == null){
+    public ContactHelper contacts() {
+        if (contacts == null) {
             contacts = new ContactHelper(this);
         }
         return contacts;
@@ -59,31 +58,5 @@ public class ApplicationManager {
         } catch (NoSuchElementException exception) {
             return false;
         }
-    }
-
-    public void CreateContact(ContactData contact) {
-        driver.findElement(By.linkText("add new")).click();
-        driver.findElement(By.name("firstname")).click();
-        driver.findElement(By.name("firstname")).sendKeys(contact.firstname());
-        driver.findElement(By.name("lastname")).click();
-        driver.findElement(By.name("lastname")).sendKeys(contact.lastname());
-        driver.findElement(By.name("address")).click();
-        driver.findElement(By.name("address")).sendKeys(contact.address());
-        driver.findElement(By.name("mobile")).click();
-        driver.findElement(By.name("mobile")).sendKeys(contact.mobile());
-        driver.findElement(By.name("theform")).click();
-        driver.findElement(By.name("email")).click();
-        driver.findElement(By.name("email")).sendKeys(contact.email());
-        driver.findElement(By.cssSelector("input:nth-child(75)")).click();
-        driver.findElement(By.linkText("home page")).click();
-    }
-
-    public void removeContact() {
-      driver.findElement(By.name("selected[]")).click();
-      driver.findElement(By.cssSelector(".left:nth-child(8) > input")).click();
-    }
-
-    public boolean isContactPresent() {
-      return isElementPresent(By.name("selected[]"));
     }
 }

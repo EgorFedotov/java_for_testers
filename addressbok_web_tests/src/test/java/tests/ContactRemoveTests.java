@@ -10,9 +10,9 @@ public class ContactRemoveTests extends TestBase{
 
   @Test
   public void CanRemoveContact() {
-    if (!app.isContactPresent()){
-      app.CreateContact(new ContactData("egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
+    if (!app.contacts().isContactPresent()){
+      app.contacts().CreateContact(new ContactData("egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
     }
-    app.removeContact();
+    app.contacts().removeContact();
   }
 }

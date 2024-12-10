@@ -10,16 +10,16 @@ public class ContactCreationTests extends TestBase{
 
     @Test
     public void CanCreationContact() {
-        app.CreateContact(new ContactData("egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
+        app.contacts().CreateContact(new ContactData("egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
     }
 
     @Test
     public void CanCreationContactEmpty() {
-        app.CreateContact(new ContactData());
+        app.contacts().CreateContact(new ContactData());
     }
 
     @Test
     public void CanCreateContactWithNameOnly() {
-        app.CreateContact(new ContactData().withName("IVAN"));
+        app.contacts().CreateContact(new ContactData().withName("IVAN"));
     }
 }
