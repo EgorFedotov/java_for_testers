@@ -2,6 +2,7 @@ package manager;
 
 import model.ContactData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class ContactHelper extends HelperBase{
 
@@ -10,6 +11,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void CreateContact(ContactData contact) {
+
         fillContactForm(contact);
         returnToHomePAge();
     }
@@ -17,6 +19,7 @@ public class ContactHelper extends HelperBase{
     public void removeContact() {
         click(By.name("selected[]"));
         deleteContact();
+        click(By.id("logo"));
     }
 
     private void fillContactForm(ContactData contact) {
@@ -34,15 +37,20 @@ public class ContactHelper extends HelperBase{
         manager.driver.findElement(by).click();
     }
 
-    public boolean isContactPresent() {
-      return manager.isElementPresent(By.name("selected[]"));
-    }
-
     private void returnToHomePAge() {
         manager.driver.findElement(By.linkText("home page")).click();
     }
 
     private void deleteContact() {
         manager.driver.findElement(By.cssSelector(".left:nth-child(8) > input")).click();
+        //manager.driver.switchTo().alert().accept();
+    }
+
+    public int getCount() {
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    public WebElement getNumbers() {
+        return manager.driver.findElement(By.id("search_count"));
     }
 }

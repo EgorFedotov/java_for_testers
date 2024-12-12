@@ -10,7 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class ApplicationManager {
     protected WebDriver driver;
     private LoginHelper session;
-    private GroupHelper groups;
+    public GroupHelper groups;
     public ContactHelper contacts;
 
     public void init(String browser) {
@@ -59,4 +59,5 @@ public class ApplicationManager {
             return false;
         }
     }
+
 }
