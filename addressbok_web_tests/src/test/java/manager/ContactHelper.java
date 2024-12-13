@@ -28,11 +28,12 @@ public class ContactHelper extends HelperBase{
         type(By.name("mobile"), contact.mobile());
         click(By.name("theform"));
         type(By.name("email"), contact.email());
-        submitContactCreation(By.cssSelector("input:nth-child(75)"));
+        submitContactCreation(By.name("submit"));
     }
 
-    private void submitContactCreation(By by) {
-        manager.driver.findElement(by).click();
+    private void submitContactCreation(By locator) {
+
+        manager.driver.findElement(locator).click();
     }
 
     private void returnToHomePAge() {
