@@ -4,39 +4,57 @@ import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactCreationTests extends TestBase{
     private WebDriver driver;
 
-
-    @Test
-    public void CanCreationContact() {
-        int countContacts = app.contacts().getCount();
-        app.contacts().CreateContact(new ContactData("egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
-        int newCountContacts = app.contacts().getCount();
-        Assertions.assertEquals(countContacts + 1, newCountContacts);
-    }
-
-    @Test
-    public void CanCreationContactEmpty() {
-        app.contacts().CreateContact(new ContactData());
-    }
-
-    @Test
-    public void CanCreateContactWithNameOnly() {
-        app.contacts().CreateContact(new ContactData().withName("IVAN"));
-    }
-
-    @Test
-    public void CanCreateMultipleContact() {
-        int n = 5;
-        int countContacts = app.contacts().getCount();
-        for(int i = 0; i < n; i++){
-            app.contacts().CreateContact(new ContactData(randomString((i+1)*10), "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
+    public static List<ContactData> contactProvider() {
+        var result = new ArrayList<ContactData>();
+        for (var firstname : List.of("", "firstname")){
+            for (var lastname : List.of("", "lastname")){
+                for (var address : List.of("", "address")){
+                    for (var mobile : List.of("", "mobile")){
+                        for (var email : List.of("", "email")){
+                            result.add(new ContactData(firstname, lastname, address, mobile, email));
+                        }
+                    }
+                }
+            }
         }
-        int newCountContacts = app.contacts().getCount();
-        Assertions.assertEquals(countContacts + n, newCountContacts);
+        for(int i = 0; i < 5; i++){
+            result.add(new ContactData(randomString((i+1)*10), randomString((i+1)*10), randomString((i+1)*10),randomString((i+1)*10),randomString((i+1)*10)));
+        }
+        return result;
+    }
+
+    @ParameterizedTest
+    @MethodSource("contactProvider")
+    public void CanCreateMultipleContact(ContactData contact) {
+        int contactCount = app.contacts().getCount();
+        app.contacts().CreateContact(contact);
+        int newContactCount = app.contacts().getCount();
+        Assertions.assertEquals(contactCount + 1, newContactCount);
+    }
+
+    public static List<ContactData> negativeContactProvider() {
+        var result = new ArrayList<ContactData>(List.of(
+                new ContactData("contact'", "", "", "", "")));
+        return result;
+    }
+
+    @ParameterizedTest
+    @MethodSource("negativeContactProvider")
+    public void CanNotCreateContact(ContactData contact) {
+        int contactCount = app.contacts().getCount();
+        app.contacts().CreateContact(contact);
+        int newContactCount = app.contacts().getCount();
+        Assertions.assertEquals(contactCount, newContactCount);
     }
 }
 
