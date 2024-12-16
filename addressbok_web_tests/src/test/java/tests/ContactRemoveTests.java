@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class ContactRemoveTests extends TestBase{
 
   private WebDriver driver;
@@ -12,18 +16,22 @@ public class ContactRemoveTests extends TestBase{
   @Test
   public void CanRemoveContact() {
     if (app.contacts().getCount() == 0){
-      app.contacts().CreateContact(new ContactData("egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
+      app.contacts().CreateContact(new ContactData("", "egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
     }
-    int countContacts = app.contacts().getCount();
-    app.contacts().removeContact();
-    int newCountContacts = app.contacts().getCount();
-    Assertions.assertEquals(countContacts - 1, newCountContacts);
+    var oldContacts = app.contacts().getList();
+    var rnd = new Random();
+    var index = rnd.nextInt(oldContacts.size());
+    app.contacts().removeContact(oldContacts.get(index));
+    var newContacts = app.contacts().getList();
+    var expectedList = new ArrayList<>(oldContacts);
+    expectedList.remove(index);
+    Assertions.assertEquals(newContacts, expectedList);
   }
 
   @Test
   public void CanRemoveAllContacts(){
     if (app.contacts().getCount() == 0){
-      app.contacts().CreateContact(new ContactData("egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
+      app.contacts().CreateContact(new ContactData("", "egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com"));
     }
     app.contacts().removeAllContacts();
     Assertions.assertEquals(0, app.contacts().getCount());

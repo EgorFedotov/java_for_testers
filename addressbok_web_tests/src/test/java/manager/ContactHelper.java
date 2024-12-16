@@ -1,7 +1,12 @@
 package manager;
 
 import model.ContactData;
+import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
@@ -14,8 +19,8 @@ public class ContactHelper extends HelperBase{
         returnToHomePAge();
     }
 
-    public void removeContact() {
-        click(By.name("selected[]"));
+    public void removeContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
         deleteContacts();
         click(By.id("logo"));
     }
@@ -59,5 +64,18 @@ public class ContactHelper extends HelperBase{
         for (var checkbox : checkboxes) {
             checkbox.click();
         }
+    }
+
+    public List<ContactData> getList() {
+        var contacts = new ArrayList<ContactData>();
+        var trs = manager.driver.findElements(By.name("entry"));
+        for (var tr: trs){
+            var td = tr.findElements(By.tagName("td"));
+            String id = String.valueOf(Integer.parseInt(td.get(0).findElement(By.cssSelector("input[type='checkbox']")).getAttribute("value")));
+            String lastname = td.get(1).getText();
+            String firstname = td.get(2).getText();
+            contacts.add(new ContactData().withId(id).withName(firstname).withLastName(lastname));
+        }
+        return contacts;
     }
 }
