@@ -15,7 +15,9 @@ public class ContactHelper extends HelperBase{
     }
 
     public void CreateContact(ContactData contact) {
+        click(By.linkText("add new"));
         fillContactForm(contact);
+        submitContactCreation(By.name("submit"));
         returnToHomePAge();
     }
 
@@ -25,20 +27,43 @@ public class ContactHelper extends HelperBase{
         click(By.id("logo"));
     }
 
+    public void removeAllContacts() {
+        selectAllContacts();
+        deleteContacts();
+    }
 
-    public void modifyContact(ContactData contactData, ContactData testData) {
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
         returnToHomePAge();
+        selectContact(contact);
+        initContactModification(contact);
+        fillContactForm(modifiedContact);
+        updateContactModification();
+        click(By.linkText("home page"));
+    }
+
+    private void updateContactModification() {
+        click(By.xpath("//input[@name='update']"));
+
+    }
+
+    private void initContactModification(ContactData contact) {
+        var edit = manager.driver.findElement(By.xpath(String.format("//a[@href='edit.php?id=%s']", contact.id())));
+        edit.click();
+    }
+
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     private void fillContactForm(ContactData contact) {
-        click(By.linkText("add new"));
+        //click(By.linkText("add new"));
         type(By.name("firstname"), contact.firstname());
         type(By.name("lastname"), contact.lastname());
         type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
-        click(By.name("theform"));
+        //click(By.name("theform"));
         type(By.name("email"), contact.email());
-        submitContactCreation(By.name("submit"));
+        //submitContactCreation(By.name("submit"));
     }
 
     private void submitContactCreation(By locator) {
@@ -51,7 +76,7 @@ public class ContactHelper extends HelperBase{
     }
 
     private void deleteContacts() {
-        manager.driver.findElement(By.cssSelector(".left:nth-child(8) > input")).click();
+        click(By.cssSelector(".left:nth-child(8) > input"));
         //manager.driver.switchTo().alert().accept();
     }
 
@@ -59,10 +84,6 @@ public class ContactHelper extends HelperBase{
         return manager.driver.findElements(By.name("selected[]")).size();
     }
 
-    public void removeAllContacts() {
-        selectAllContacts();
-        deleteContacts();
-    }
 
     private void selectAllContacts() {
         var checkboxes = manager.driver.findElements(By.name("selected[]"));

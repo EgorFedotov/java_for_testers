@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class ContactRemoveTests extends TestBase{
 
-  private WebDriver driver;
 
   @Test
   public void CanRemoveContact() {
