@@ -42,7 +42,7 @@ public class ContactHelper extends HelperBase{
     }
 
     private void returnToHomePAge() {
-        manager.driver.findElement(By.linkText("home page")).click();
+        manager.driver.findElement(By.linkText("home")).click();
     }
 
     private void deleteContacts() {
@@ -67,6 +67,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public List<ContactData> getList() {
+        returnToHomePAge();
         var contacts = new ArrayList<ContactData>();
         var trs = manager.driver.findElements(By.name("entry"));
         for (var tr: trs){
