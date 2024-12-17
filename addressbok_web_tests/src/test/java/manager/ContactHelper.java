@@ -56,19 +56,15 @@ public class ContactHelper extends HelperBase{
     }
 
     private void fillContactForm(ContactData contact) {
-        //click(By.linkText("add new"));
         type(By.name("firstname"), contact.firstname());
         type(By.name("lastname"), contact.lastname());
         type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
-        //click(By.name("theform"));
         type(By.name("email"), contact.email());
-        //submitContactCreation(By.name("submit"));
     }
 
     private void submitContactCreation(By locator) {
-
-        manager.driver.findElement(locator).click();
+        click(locator);
     }
 
     private void returnToHomePAge() {
