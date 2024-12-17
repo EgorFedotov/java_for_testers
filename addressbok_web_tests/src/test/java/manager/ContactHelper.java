@@ -25,6 +25,11 @@ public class ContactHelper extends HelperBase{
         click(By.id("logo"));
     }
 
+
+    public void modifyContact(ContactData contactData, ContactData testData) {
+        returnToHomePAge();
+    }
+
     private void fillContactForm(ContactData contact) {
         click(By.linkText("add new"));
         type(By.name("firstname"), contact.firstname());
@@ -80,3 +85,4 @@ public class ContactHelper extends HelperBase{
         return contacts;
     }
 }
+
