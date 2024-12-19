@@ -61,6 +61,7 @@ public class ContactHelper extends HelperBase{
         type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
         type(By.name("email"), contact.email());
+        //attach(By.name("photo"), contact.photo());
     }
 
     private void submitContactCreation(By locator) {
@@ -68,7 +69,7 @@ public class ContactHelper extends HelperBase{
     }
 
     private void returnToHomePAge() {
-        manager.driver.findElement(By.linkText("home")).click();
+        manager.driver.findElement(By.linkText("home page")).click();
     }
 
     private void deleteContacts() {
@@ -89,7 +90,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public List<ContactData> getList() {
-        returnToHomePAge();
+        //returnToHomePAge();
         var contacts = new ArrayList<ContactData>();
         var trs = manager.driver.findElements(By.name("entry"));
         for (var tr: trs){
