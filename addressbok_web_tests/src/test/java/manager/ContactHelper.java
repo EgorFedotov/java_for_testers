@@ -17,7 +17,7 @@ public class ContactHelper extends HelperBase{
     public void CreateContact(ContactData contact) {
         click(By.linkText("add new"));
         fillContactForm(contact);
-        submitContactCreation(By.name("submit"));
+        click(By.name("submit"));
         returnToHomePAge();
     }
 
@@ -64,9 +64,6 @@ public class ContactHelper extends HelperBase{
         //attach(By.name("photo"), contact.photo());
     }
 
-    private void submitContactCreation(By locator) {
-        click(locator);
-    }
 
     private void returnToHomePAge() {
         manager.driver.findElement(By.linkText("home page")).click();
