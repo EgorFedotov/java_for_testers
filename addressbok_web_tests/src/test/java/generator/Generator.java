@@ -60,8 +60,7 @@ public class Generator {
         for(int i = 0; i < count; i++){
             result.add(new ContactData()
                     .withName(CommonFunctions.randomString((i)*10))
-                    .withLastName(CommonFunctions.randomString((i)*10))
-                    .withPhoto(CommonFunctions.randomFile("src/test/resources/images")));
+                    .withLastName(CommonFunctions.randomString((i)*10)));
         }
         return result;
     }
