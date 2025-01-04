@@ -66,7 +66,7 @@ public class ContactHelper extends HelperBase{
 
 
     private void returnToHomePAge() {
-        manager.driver.findElement(By.linkText("home page")).click();
+        manager.driver.findElement(By.linkText("home")).click();
     }
 
     private void deleteContacts() {
