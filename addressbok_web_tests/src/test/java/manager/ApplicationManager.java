@@ -14,6 +14,7 @@ public class ApplicationManager {
     private LoginHelper session;
     public GroupHelper groups;
     public ContactHelper contacts;
+    private jdbcHelper jdbc;
     private Properties properties;
 
     public void init(String browser, Properties properties) {
@@ -53,6 +54,13 @@ public class ApplicationManager {
             contacts = new ContactHelper(this);
         }
         return contacts;
+    }
+
+    public jdbcHelper jdbc() {
+        if (jdbc == null) {
+            jdbc = new jdbcHelper(this);
+        }
+        return jdbc;
     }
 
     protected boolean isElementPresent(By locator) {
