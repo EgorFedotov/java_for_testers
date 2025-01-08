@@ -84,17 +84,29 @@ public class Generator {
 
             try (var writer = new FileWriter(output)){
                 writer.write(json);
+            } catch (IOException e) {
+                throw new IOException("Ошибка при записи JSON файла", e);
             }
-        } if ("yaml".equals(format)) {
+        } else if ("yaml".equals(format)) {
             var mapper = new YAMLMapper();
-            mapper.writeValue(new File(output), data);
-        } if ("xml".equals(format)) {
+            try {
+                mapper.writeValue(new File(output), data);
+            } catch (IOException e) {
+                throw new IOException("Ошибка при записи YAML файла", e);
+            }
+        } else if ("xml".equals(format)) {
             var mapper = new XmlMapper();
-            mapper.writeValue(new File(output), data);
+            try {
+                mapper.writeValue(new File(output), data);
+            } catch (IOException e) {
+                throw new IOException("Ошибка при записи XML файла", e);
+            }
         } else {
             throw new IllegalArgumentException("Неизвестный формат данных" + format);
         }
     }
+
+
 }
 
 
