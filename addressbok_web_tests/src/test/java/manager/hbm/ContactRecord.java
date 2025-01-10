@@ -45,10 +45,10 @@ public class ContactRecord {
     public String im3 =  "";
     public String homepage =  "";
     public int bday = 14;
-    public int bmonth = 7;
+    public String bmonth = "";
     public int byear =  1997;
     public int  aday =  1;
-    public int amonth =  1;
+    public String amonth =  "";
     public int ayear =  1;
     public String address2 =  "";
     public String phone2 =  "";
