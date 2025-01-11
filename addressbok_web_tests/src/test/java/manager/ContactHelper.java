@@ -127,6 +127,16 @@ public class ContactHelper extends HelperBase{
     private void selectToGroup(GroupData groupData) {
         new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(groupData.id());
     }
+
+    public void selectGroupById(GroupData groupData) {
+        returnToHomePAge();
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(groupData.id());
+    }
+
+    public void removeContactFromGroup(ContactData contactForDelete) {
+        selectContact(contactForDelete);
+        manager.driver.findElement(By.name("remove")).click();
+    }
 }
 
 
