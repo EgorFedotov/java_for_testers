@@ -28,7 +28,7 @@ public class ContactRemovalFromGroup extends TestBase{
         }
         if (contactForDelete == null) {
             var contactListNotInGroup = app.hbm().getContactsNotInGroup();
-            if  ( (contactListNotInGroup != null) && (!contactListNotInGroup.isEmpty()) ) {
+            if  ((contactListNotInGroup != null) && (!contactListNotInGroup.isEmpty())) {
                 contactForDelete = contactListNotInGroup.get(0);
                 groupData = groupList.get(0);
                 app.contacts().addContactInToGroup(contactForDelete, groupData);
@@ -48,7 +48,6 @@ public class ContactRemovalFromGroup extends TestBase{
         app.contacts().removeContactFromGroup(contactForDelete);
         var newContacts = app.hbm().getContactsInGroup(groupData);
         var expectedList = new ArrayList<>(oldContacts);
-
         ContactData finalContactForDelete = contactForDelete;
         expectedList.removeIf(contactData -> finalContactForDelete.id().equals(contactData.id()));
         Assertions.assertEquals(Set.copyOf(expectedList), Set.copyOf(newContacts));

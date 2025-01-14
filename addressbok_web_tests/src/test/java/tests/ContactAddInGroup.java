@@ -16,7 +16,11 @@ public class ContactAddInGroup extends TestBase{
         if (app.hbm().getGroupCount() == 0){
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
+        if ( app.contacts().getCount() == 0){
+            app.contacts().CreateContact(new ContactData("", "egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com", ""));
+        }
         var groupList = app.hbm().getGroupList();
+
         ContactData contactForAddToGroup = null;
         GroupData groupData = groupList.get(0);
         var oldContactListInGroup = app.hbm().getContactsInGroup(groupData);
@@ -33,7 +37,6 @@ public class ContactAddInGroup extends TestBase{
             var contacts = app.hbm().getContactsInGroup(groupData);
             contactForAddToGroup = contacts.get(contacts.size() - 1);
         }
-
         var expectedContactListInGroup = app.hbm().getContactsInGroup(groupData);
         var newContactListInGroup = new ArrayList<>(oldContactListInGroup);
         newContactListInGroup.add(contactForAddToGroup);
