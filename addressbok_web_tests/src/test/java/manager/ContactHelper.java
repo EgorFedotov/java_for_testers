@@ -148,12 +148,20 @@ public class ContactHelper extends HelperBase{
     public Map<String, String> getPhones() {
         var result = new HashMap<String, String>();
         List<WebElement> rows = manager.driver.findElements(By.name("entry"));
-        for (WebElement row : rows){
-            var id = row.findElement(By.tagName("input")).getAttribute("id");
-            var phones = row.findElements(By.tagName("id")).get(5).getText();
+        for (WebElement row : rows) {
+            var  id = row.findElement(By.tagName("input")).getAttribute("id");
+            var phones = row.findElements(By.tagName("td")).get(5).getText();
             result.put(id, phones);
         }
         return result;
+    }
+
+    public String getEmails(ContactData contact) {
+        return manager.driver.findElement(By.xpath(String.format("//input[@id='%s']/../../td[5]", contact.id()))).getText();
+    }
+
+    public String getAddresses(ContactData contact) {
+        return manager.driver.findElement(By.xpath(String.format("//input[@id='%s']/../../td[4]", contact.id()))).getText();
     }
 }
 

@@ -37,7 +37,7 @@ public class ContactRemovalFromGroup extends TestBase{
         if (contactForDelete == null) {
             groupData = groupList.get(0);
             app.contacts().CreateContact(
-                    new ContactData("", "egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com", "", "", "", ""),
+                    new ContactData("", "egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com", "", "", "", "", "", "", ""),
                     groupData
             );
             var contacts = app.hbm().getContactsInGroup(groupData);
