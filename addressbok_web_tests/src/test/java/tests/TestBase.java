@@ -21,7 +21,6 @@ public class TestBase {
             app = new ApplicationManager();
             app.init(System.getProperty("browser", "chrome"), properties);
         }
-
     }
 
     @AfterEach
