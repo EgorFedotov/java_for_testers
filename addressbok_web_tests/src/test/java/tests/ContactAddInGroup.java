@@ -1,17 +1,31 @@
 package tests;
 
+import common.CommonFunctions;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class ContactAddInGroup extends TestBase{
 
-    @Test
-    void canAddContactInGroup() {
+    public static List<ContactData> singleRandomContact() {
+        return List.of(new ContactData()
+                .withName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(10))
+                .withAddress(CommonFunctions.randomString(10))
+                .withMobile(CommonFunctions.randomString(10))
+                .withEmail(CommonFunctions.randomString(10)));
+    }
+
+    @ParameterizedTest
+    @MethodSource("singleRandomContact")
+    void canAddContactInGroup(ContactData contact) {
         if (app.hbm().getGroupCount() == 0){
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
@@ -21,20 +35,18 @@ public class ContactAddInGroup extends TestBase{
         var groupList = app.hbm().getGroupList();
 
         ContactData contactForAddToGroup = null;
-        GroupData groupData = groupList.get(0);
+        GroupData groupData = groupList.getFirst();
         var oldContactListInGroup = app.hbm().getContactsInGroup(groupData);
         var contactListNotInGroup = app.hbm().getContactsNotInGroup();
         if  ((contactListNotInGroup != null) && (!contactListNotInGroup.isEmpty())) {
-            contactForAddToGroup = contactListNotInGroup.get(0);
+            contactForAddToGroup = contactListNotInGroup.getFirst();
             app.contacts().addContactInToGroup(contactForAddToGroup, groupData);
         }
         if (contactForAddToGroup == null) {
-            app.contacts().CreateContact(
-                    new ContactData("", "egor", "fedotov", "arzamas", "88005553535", "egor@gmail.com", "", "", "", "", "", "", ""),
-                    groupData
-            );
-            var contacts = app.hbm().getContactsInGroup(groupData);
-            contactForAddToGroup = contacts.get(contacts.size() - 1);
+            app.contacts().CreateContact(contact);
+            contact = contact.withId(app.hbm().getIdContactByName(contact.firstname()));
+            app.contacts().addContactInToGroup(contact, groupData);
+            contactForAddToGroup = contact;
         }
         var expectedContactListInGroup = app.hbm().getContactsInGroup(groupData);
         var newContactListInGroup = new ArrayList<>(oldContactListInGroup);
