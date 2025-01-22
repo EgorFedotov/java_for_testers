@@ -42,7 +42,7 @@ public class ContactAddInGroup extends TestBase{
             contactForAddToGroup = contactListNotInGroup.getFirst();
             app.contacts().addContactInToGroup(contactForAddToGroup, groupData);
         }
-        if (contactForAddToGroup == null) {
+        else {
             app.contacts().CreateContact(contact);
             contact = contact.withId(app.hbm().getIdContactByName(contact.firstname()));
             app.contacts().addContactInToGroup(contact, groupData);
