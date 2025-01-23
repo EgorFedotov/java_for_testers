@@ -84,7 +84,7 @@ public class GroupHelper extends HelperBase{
     }
 
     private void selectGroup(GroupData group) {
-        click(By.cssSelector(String.format("input2[value='%s']", group.id())));
+        click(By.cssSelector(String.format("input[value='%s']", group.id())));
 
     }
 
@@ -105,6 +105,7 @@ public class GroupHelper extends HelperBase{
                 .forEach(WebElement::click);
     }
 
+    @Step
     public List<GroupData> getList() {
         openGroupPage();
         var spans = manager.driver.findElements(By.cssSelector("span.group"));
